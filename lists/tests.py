@@ -17,6 +17,12 @@ class SmokeTest(TestCase):
         item_text = 'to do a new item'
         response = self.client.post('/', data={'item_text': item_text})
 
+        # 断言数据已经保存在数据库中
+        self.assertEqual(Item.objects.count(), 1)
+        # saved_item = Item.objects.get(pk=1)
+        saved_item = Item.objects.first()
+        self.assertEqual(saved_item.text, item_text)
+
         self.assertContains(response, item_text)
         self.assertTemplateUsed(response, 'lists/home_page.html')
 
