@@ -5,8 +5,15 @@
     <title>To-Do Lists</title>
 </head>
 <body>
-    <h1>To-Do Lists</h1>
+    <h1>Your To-Do Lists</h1>
 
-    <input id="id_new_item" placeholder="Enter a new item">
+    <form method="POST">
+        {% csrf_token %}
+        <input id="id_new_item" name="item_text" placeholder="Enter a new item">
+    </form>
+    <table id="id_list_table" >
+
+
+    </table>
 </body>
 </html>

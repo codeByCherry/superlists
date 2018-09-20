@@ -1,6 +1,12 @@
 import unittest
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException
+
+MAX_TIME = 5
 
 
 class NewVisitorTest(unittest.TestCase):
@@ -11,7 +17,24 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
 
     def check_item_in_table(self, item):
-        pass
+        start_time = time.time()
+        while True:
+            try:
+
+                items = self.browser.find_element_by_id('id_list_table').text
+                self.assertIn(item, items)
+                break
+
+            except (StaleElementReferenceException,
+                    AssertionError,
+                    NoSuchElementException,
+                    ) as err:
+                cost_time = time.time()-start_time
+                print('cost time:', cost_time)
+                if cost_time >= MAX_TIME:
+                    raise err
+                else:
+                    time.sleep(0.1)
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get('http://localhost:8000')
@@ -29,6 +52,7 @@ class NewVisitorTest(unittest.TestCase):
         item_1 = '# item 1'
         input_box.send_keys(item_1)
         input_box.send_keys(Keys.ENTER)
+
         self.check_item_in_table(item_1)
 
 
