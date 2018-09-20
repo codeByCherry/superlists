@@ -9,6 +9,10 @@ def home_page(request):
     if request.method == "POST":
         item_text = request.POST.get('item_text')
         Item.objects.create(text=item_text)
+        return redirect('/')
 
-        return render(request, 'lists/home_page.html', context={'new_item_text': item_text})
-    return render(request, 'lists/home_page.html')
+    item_text = Item.objects.order_by('-pk').first()
+    context = dict(
+        new_item_text=item_text,
+    )
+    return render(request, 'lists/home_page.html', context)
