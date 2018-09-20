@@ -1,13 +1,16 @@
 from django.test import TestCase
+from django.urls import resolve
+from .views import home_page
 
-# Create your tests here.
 
-# test git working flow
+class SmokeTest(TestCase):
+    def setUp(self):
+        pass
 
-# 1 commit from branch: dev
-# 2 commit from branch: dev
-# 3 commit from branch: dev
+    def tearDown(self):
+        pass
 
-# 添加了若干内容 add on branch: dev
+    def test_root_url_resolve_to_home_page(self):
+        found = resolve('/')
+        self.assertEqual(found.func, home_page)
 
-# 继续开发...
