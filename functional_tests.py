@@ -36,6 +36,11 @@ class NewVisitorTest(unittest.TestCase):
                 else:
                     time.sleep(0.1)
 
+    def input_todo_item(self, item_text):
+        input_box = self.browser.find_element_by_id('id_new_item')
+        input_box.send_keys(item_text)
+        input_box.send_keys(Keys.ENTER)
+
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get('http://localhost:8000')
         self.assertIn('To-Do', self.browser.title)
@@ -50,10 +55,14 @@ class NewVisitorTest(unittest.TestCase):
 
         # 在输入框中输入内容
         item_1 = '# item 1'
-        input_box.send_keys(item_1)
-        input_box.send_keys(Keys.ENTER)
-
+        self.input_todo_item(item_1)
         self.check_item_in_table(item_1)
+
+        # 继续在输入框中输入内容
+        item_2 = '# item 2'
+        self.input_todo_item(item_2)
+        self.check_item_in_table(item_1)
+        self.check_item_in_table(item_2)
 
 
 if __name__ == '__main__':

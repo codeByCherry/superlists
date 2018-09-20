@@ -14,4 +14,10 @@ class SmokeTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'lists/home_page.html')
 
+    def test_can_save_a_POST_request(self):
+        item_text = 'to do a new item'
+        response = self.client.post('/', data={'item_text': item_text})
+
+        self.assertContains(response, item_text)
+        self.assertTemplateUsed(response, 'lists/home_page.html')
 
