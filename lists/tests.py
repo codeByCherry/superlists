@@ -11,6 +11,7 @@ class SmokeTest(TestCase):
         pass
 
     def test_root_url_resolve_to_home_page(self):
-        found = resolve('/')
-        self.assertEqual(found.func, home_page)
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'lists/home_page.html')
+
 
