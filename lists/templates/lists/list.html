@@ -7,10 +7,11 @@
 <body>
     <h1>Your To-Do Lists</h1>
 
-    <form method="POST" action="">
+    <form method="POST" action="/lists/{{list_id}}/add_item">
         {% csrf_token %}
         <input id="id_new_item" name="item_text" placeholder="Enter a new item">
     </form>
+
     <table id="id_list_table" >
         {% for item in items %}
         <tr><td>{{forloop.counter}}: {{ item.text }}</td></tr>
@@ -19,5 +20,6 @@
         {% endfor %}
 
     </table>
+
 </body>
 </html>

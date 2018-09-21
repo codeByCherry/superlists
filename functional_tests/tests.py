@@ -11,6 +11,7 @@ MAX_TIME = 5
 
 class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
+        print()
         print("*"*30)
         print("live_server_url->" + self.live_server_url)
         print("*"*30)

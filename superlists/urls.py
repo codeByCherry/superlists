@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.urls import path
 from lists import views
-from lists.views import UNIQUE_LIST
+
 
 urlpatterns = [
     path('', views.home_page, name="home"),
-    path(UNIQUE_LIST[1:], views.view_list, name="view_list"),
+    path('lists/<int:list_id>/', views.view_list, name="view_list"),
     # 专门处理 POST 请求的 url 建议不用/ 结尾
     path('lists/new', views.new_list, name="new_list"),
+    path('lists/<int:list_id>/add_item', views.add_item, name="add_item"),
 ]
