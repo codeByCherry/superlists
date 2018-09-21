@@ -42,6 +42,10 @@ class ListViewTest(TestCase):
     def tearDown(self):
         pass
 
+    def test_used_template(self):
+        response = self.client.get(UNIQUE_LIST)
+        self.assertTemplateUsed(response, 'lists/list.html')
+
     # 用于显示用户列表
     def test_displays_all_list_items(self):
         item_1 = Item.objects.create(text="#1")

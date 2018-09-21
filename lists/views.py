@@ -25,5 +25,5 @@ def view_list(request):
     context = dict(
         items=items,
     )
-    return render(request, 'lists/view_list.html', context)
+    return render(request, 'lists/list.html', context)
 
