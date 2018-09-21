@@ -2,7 +2,7 @@ from django.test import TestCase
 from .models import Item
 
 
-class SmokeTest(TestCase):
+class HomePageTest(TestCase):
     def setUp(self):
         pass
 
@@ -31,6 +31,16 @@ class SmokeTest(TestCase):
         item_text = 'to do a new item'
         response = self.client.post('/', data={'item_text': item_text})
         self.assertRedirects(response, '/')
+
+    def test_displays_all_list_items(self):
+        item_1 = Item.objects.create(text="#1")
+        item_2 = Item.objects.create(text="#2")
+        item_3 = Item.objects.create(text="#3")
+
+        response = self.client.get('/')
+        self.assertContains(response, item_1.text)
+        self.assertContains(response, item_2.text)
+        self.assertContains(response, item_3.text)
 
 
 class ItemModelTest(TestCase):

@@ -11,8 +11,8 @@ def home_page(request):
         Item.objects.create(text=item_text)
         return redirect('/')
 
-    item_text = Item.objects.order_by('-pk').first()
+    items = Item.objects.all()
     context = dict(
-        new_item_text=item_text,
+        items=items,
     )
     return render(request, 'lists/home_page.html', context)
