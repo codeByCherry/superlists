@@ -26,6 +26,7 @@ SECRET_KEY = 'j_q&_xxno49609sg2%j9%$qah2bolnds$z+qwk$8_brq#ahs&@'
 DEBUG = False
 
 ALLOWED_HOSTS = [
+    'localhost',
     'www.oocoding.com',
 ]
 
@@ -132,4 +133,26 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 #   mkdir -p ~/sites/$SITENAME/database
 #   mkdir -p ~/sites/$SITENAME/static
 #   mkdir -p ~/sites/$SITENAME/virtualenv
+#   手动部署代码到服务器
+#   将服务器的公钥添加到 github 中
+#   ssh-keygen -t rsa -C "somebody_qq@qq.com"
+#   cat ~/.ssh/id_rsa.pub  内容设置到 github 中
 #   git clone git://zhang....git ~/sites/$SITENAME/source
+#   在终端配置服务器的 Python 环境。  python3 -m venv ../virtualenv
+#   激活虚拟环境 source ../virtualenv/bin/active
+#   安装 django
+#   pip install django
+#
+#   安装 nginx
+#   sudo apt install nginx
+#   启动 nginx 检查 nginx 是否启动成功
+#   sudo systemctl start nginx
+#   访问 http://ip.address or http://web_name
+#   检查是否看到nginx 的启动页面
+#
+#   检查 settings.py 是否关闭了调试模式 并绑定好可访问的域名
+#   ALLOWED_HOSTS
+#
+#   配置 nginx 将80端口映射到服务器的 8000 端口
+#
+
