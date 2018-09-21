@@ -1,6 +1,7 @@
 # from django.test import LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -12,6 +13,10 @@ MAX_TIME = 5
 
 class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
+        web_host = os.environ.get('STAGING_SERVER')
+        if web_host:
+            self.live_server_url = f'http://{web_host}'
+
         print()
         print("*"*30)
         print("live_server_url->" + self.live_server_url)
