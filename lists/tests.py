@@ -18,22 +18,6 @@ class HomePageTest(TestCase):
         self.client.get('/')
         self.assertEqual(Item.objects.count(), 0)
 
-    def test_can_save_a_POST_request(self):
-        item_text = 'to do a new item'
-        self.client.post('/', data={'item_text': item_text})
-
-        # 断言数据已经保存在数据库中
-        self.assertEqual(Item.objects.count(), 1)
-        # saved_item = Item.objects.get(pk=1)
-        saved_item = Item.objects.first()
-        self.assertEqual(saved_item.text, item_text)
-
-    def test_redirect_after_POST(self):
-        item_text = 'to do a new item'
-        response = self.client.post('/', data={'item_text': item_text})
-        # 为了满足功能测试：没个用户的待办列表的 url 是唯一的，修改这个单元测试。
-        self.assertRedirects(response, UNIQUE_LIST)
-
 
 class ListViewTest(TestCase):
     def setUp(self):
@@ -45,6 +29,16 @@ class ListViewTest(TestCase):
     def test_used_template(self):
         response = self.client.get(UNIQUE_LIST)
         self.assertTemplateUsed(response, 'lists/list.html')
+
+    def test_can_save_a_POST_request(self):
+        reponse = self.client.post(UNIQUE_LIST, data={'item_text': "#1"})
+        self.assertEqual(Item.objects.count(), 1)
+        saved_item = Item.objects.first()
+        self.assertEqual(saved_item.text, "#1")
+
+    def test_redirect_after_POST(self):
+        response = self.client.post(UNIQUE_LIST, data={'item_text': '#1'})
+        self.assertRedirects(response, UNIQUE_LIST)
 
     # 用于显示用户列表
     def test_displays_all_list_items(self):

@@ -8,15 +8,15 @@ UNIQUE_LIST = "/lists/unique-list/"
 
 
 def home_page(request):
+    return render(request, 'lists/home_page.html')
+
+
+def view_list(request):
     if request.method == "POST":
         item_text = request.POST.get('item_text')
         Item.objects.create(text=item_text)
         return redirect(UNIQUE_LIST)
 
-    return render(request, 'lists/home_page.html')
-
-
-def view_list(request):
     items = Item.objects.all()
     context = dict(
         items=items,
