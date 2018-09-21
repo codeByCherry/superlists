@@ -13,11 +13,7 @@ def home_page(request):
         Item.objects.create(text=item_text)
         return redirect(UNIQUE_LIST)
 
-    items = Item.objects.all()
-    context = dict(
-        items=items,
-    )
-    return render(request, 'lists/home_page.html', context)
+    return render(request, 'lists/home_page.html')
 
 
 def view_list(request):
