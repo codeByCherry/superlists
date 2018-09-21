@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .models import Item
+from .models import List
+
 from django.http import HttpResponse
 
 
@@ -12,11 +14,6 @@ def home_page(request):
 
 
 def view_list(request):
-    if request.method == "POST":
-        item_text = request.POST.get('item_text')
-        Item.objects.create(text=item_text)
-        return redirect(UNIQUE_LIST)
-
     items = Item.objects.all()
     context = dict(
         items=items,
@@ -26,8 +23,9 @@ def view_list(request):
 
 def new_list(request):
     if request.method == "POST":
+        list1 = List.objects.create()
         item_text = request.POST.get('item_text')
-        Item.objects.create(text=item_text)
+        Item.objects.create(list=list1, text=item_text)
         return redirect(UNIQUE_LIST)
 
     else:

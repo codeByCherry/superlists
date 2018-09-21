@@ -1,6 +1,8 @@
-from django.test import TestCase
 from .models import Item
+from .models import List
 from .views import UNIQUE_LIST
+
+from django.test import TestCase
 
 
 class HomePageTest(TestCase):
@@ -17,20 +19,21 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'lists/list.html')
 
     def test_can_save_a_POST_request(self):
-        self.client.post(UNIQUE_LIST, data={'item_text': "#1"})
+        self.client.post("/lists/new", data={'item_text': "#1"})
         self.assertEqual(Item.objects.count(), 1)
         saved_item = Item.objects.first()
         self.assertEqual(saved_item.text, "#1")
 
     def test_redirect_after_POST(self):
-        response = self.client.post(UNIQUE_LIST, data={'item_text': '#1'})
+        response = self.client.post("/lists/new", data={'item_text': '#1'})
         self.assertRedirects(response, UNIQUE_LIST)
 
     # 用于显示用户列表
     def test_displays_all_list_items(self):
-        item_1 = Item.objects.create(text="#1")
-        item_2 = Item.objects.create(text="#2")
-        item_3 = Item.objects.create(text="#3")
+        list1 = List.objects.create()
+        item_1 = Item.objects.create(list=list1, text="#1")
+        item_2 = Item.objects.create(list=list1, text="#2")
+        item_3 = Item.objects.create(list=list1, text="#3")
 
         response = self.client.get(UNIQUE_LIST)
         self.assertContains(response, item_1.text)
@@ -41,28 +44,38 @@ class ListViewTest(TestCase):
 class NewListTest(TestCase):
 
     def test_can_save_a_POST_request(self):
-        self.client.post(UNIQUE_LIST, data={'item_text': "#1"})
+        self.client.post('/lists/new', data={'item_text': "#1"})
         self.assertEqual(Item.objects.count(), 1)
         saved_item = Item.objects.first()
         self.assertEqual(saved_item.text, "#1")
 
     def test_redirect_after_POST(self):
-        response = self.client.post(UNIQUE_LIST, data={'item_text': '#1'})
+        response = self.client.post('/lists/new', data={'item_text': '#1'})
         self.assertRedirects(response, UNIQUE_LIST)
 
 
-class ItemModelTest(TestCase):
+class ListAndItemModelTest(TestCase):
 
     def test_save_and_retrieving_items(self):
-        item_1 = Item.objects.create(text="#1")
-        item_2 = Item.objects.create(text="#2")
-        item_3 = Item.objects.create(text="#3")
+        list1 = List.objects.create()
+        item_1 = Item.objects.create(text="#1", list=list1)
+        item_2 = Item.objects.create(text="#2", list=list1)
+        item_3 = Item.objects.create(text="#3", list=list1)
 
-        saved_items = Item.objects.all()
+        list2 = List.objects.create()
+        item_4 = Item.objects.create(text="#4", list=list2)
+        item_5 = Item.objects.create(text="#5", list=list2)
+        item_6 = Item.objects.create(text="#6", list=list2)
 
-        self.assertIn(item_1, saved_items)
-        self.assertIn(item_2, saved_items)
-        self.assertIn(item_3, saved_items)
+        self.assertEqual(Item.objects.count(), 6)
+        self.assertEqual(List.objects.count(), 2)
 
-        saved_item_1 = Item.objects.get(pk=1)
-        self.assertEqual(item_1.text, saved_item_1.text)
+        self.assertEqual(item_1.list, list1)
+        self.assertEqual(item_2.list, list1)
+        self.assertEqual(item_3.list, list1)
+
+        self.assertEqual(item_4.list, list2)
+        self.assertEqual(item_5.list, list2)
+        self.assertEqual(item_6.list, list2)
+
+
