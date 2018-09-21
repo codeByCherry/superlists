@@ -1,4 +1,5 @@
-from django.test import LiveServerTestCase
+# from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
 
 from selenium import webdriver
@@ -9,7 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 MAX_TIME = 5
 
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         print()
         print("*"*30)
