@@ -67,8 +67,3 @@ class NewVisitorTest(LiveServerTestCase):
         self.input_todo_item(item_2)
         self.wait_for_row_in_list_table(item_1)
         self.wait_for_row_in_list_table(item_2)
-
-
-if __name__ == '__main__':
-    unittest.main()
-
