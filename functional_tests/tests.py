@@ -90,6 +90,7 @@ class NewVisitorTest(LiveServerTestCase):
         # # 所以关闭了浏览器后，重新开启该浏览器
         self.browser.quit()
         self.browser = webdriver.Firefox()
+        self.browser.get(self.live_server_url)
 
         andy_item1 = "#andy_item1"
         andy_item2 = "#andy_item2"

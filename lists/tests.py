@@ -34,16 +34,6 @@ class HomePageTest(TestCase):
         # 为了满足功能测试：没个用户的待办列表的 url 是唯一的，修改这个单元测试。
         self.assertRedirects(response, UNIQUE_LIST)
 
-    def test_displays_all_list_items(self):
-        item_1 = Item.objects.create(text="#1")
-        item_2 = Item.objects.create(text="#2")
-        item_3 = Item.objects.create(text="#3")
-
-        response = self.client.get('/')
-        self.assertContains(response, item_1.text)
-        self.assertContains(response, item_2.text)
-        self.assertContains(response, item_3.text)
-
 
 class ListViewTest(TestCase):
     def setUp(self):
