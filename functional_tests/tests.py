@@ -1,4 +1,4 @@
-import unittest
+from django.test import LiveServerTestCase
 import time
 
 from selenium import webdriver
@@ -9,14 +9,17 @@ from selenium.common.exceptions import NoSuchElementException
 MAX_TIME = 5
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
+        print("*"*30)
+        print("live_server_url->" + self.live_server_url)
+        print("*"*30)
         self.browser = webdriver.Firefox()
 
     def tearDown(self):
         self.browser.quit()
 
-    def check_item_in_table(self, item):
+    def wait_for_row_in_list_table(self, item):
         start_time = time.time()
         while True:
             try:
@@ -42,7 +45,8 @@ class NewVisitorTest(unittest.TestCase):
         input_box.send_keys(Keys.ENTER)
 
     def test_can_start_a_list_and_retrieve_it_later(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
+
         self.assertIn('To-Do', self.browser.title)
 
         # 断言该页面的 h1 内容含有 'To-Do'
@@ -56,13 +60,13 @@ class NewVisitorTest(unittest.TestCase):
         # 在输入框中输入内容
         item_1 = '# item 1'
         self.input_todo_item(item_1)
-        self.check_item_in_table(item_1)
+        self.wait_for_row_in_list_table(item_1)
 
         # 继续在输入框中输入内容
         item_2 = '# item 2'
         self.input_todo_item(item_2)
-        self.check_item_in_table(item_1)
-        self.check_item_in_table(item_2)
+        self.wait_for_row_in_list_table(item_1)
+        self.wait_for_row_in_list_table(item_2)
 
 
 if __name__ == '__main__':
