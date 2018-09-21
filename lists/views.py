@@ -27,7 +27,7 @@ def view_list(request):
 def new_list(request):
     if request.method == "POST":
         item_text = request.POST.get('item_text')
-        Item.object.create(text=item_text)
+        Item.objects.create(text=item_text)
         return redirect(UNIQUE_LIST)
 
     else:

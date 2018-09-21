@@ -17,6 +17,7 @@ from django.urls import path
 from lists import views
 from lists.views import UNIQUE_LIST
 
+
 urlpatterns = [
     path('', views.home_page, name="home"),
     path(UNIQUE_LIST[1:], views.view_list, name="view_list"),
