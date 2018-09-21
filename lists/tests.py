@@ -19,7 +19,7 @@ class HomePageTest(TestCase):
 
     def test_can_save_a_POST_request(self):
         item_text = 'to do a new item'
-        response = self.client.post('/', data={'item_text': item_text})
+        self.client.post('/', data={'item_text': item_text})
 
         # 断言数据已经保存在数据库中
         self.assertEqual(Item.objects.count(), 1)
