@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j_q&_xxno49609sg2%j9%$qah2bolnds$z+qwk$8_brq#ahs&@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.oocoding.com',
+]
 
 
 # Application definition
@@ -123,3 +125,11 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
+#  在服务器的终端输入下面指令
+#   cd ~
+#   # 使用 staging 表示这是一个过渡测试网站，不是正式上线的网站
+#   export SITENAME=www.staging.oocoding.com
+#   mkdir -p ~/sites/$SITENAME/database
+#   mkdir -p ~/sites/$SITENAME/static
+#   mkdir -p ~/sites/$SITENAME/virtualenv
+#   git clone git://zhang....git ~/sites/$SITENAME/source
