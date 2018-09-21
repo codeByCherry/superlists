@@ -23,3 +23,12 @@ def view_list(request):
     )
     return render(request, 'lists/list.html', context)
 
+
+def new_list(request):
+    if request.method == "POST":
+        item_text = request.POST.get('item_text')
+        Item.object.create(text=item_text)
+        return redirect(UNIQUE_LIST)
+
+    else:
+        raise Exception('Only accept POST request!!!')
