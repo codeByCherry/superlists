@@ -117,3 +117,17 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table(andy_item2)
         # 断言: 两个用户的 url 不同
         self.assertNotEqual(tony_url, andy_url)
+
+    def test_layout_and_styling(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # 确定输入框水平居中
+        input_box = self.browser.find_element_by_id('id_new_item')
+
+        self.assertAlmostEqual(
+            input_box.location['x']+input_box.size['width']*0.5,
+            512,
+            delta=20,
+        )
+        
