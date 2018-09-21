@@ -123,11 +123,11 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.set_window_size(1024, 768)
 
         # 确定输入框水平居中
-        input_box = self.browser.find_element_by_id('id_new_item')
+        input_from = self.browser.find_element_by_id('id_new_item_form')
 
         self.assertAlmostEqual(
-            input_box.location['x']+input_box.size['width']*0.5,
+            input_from.location['x']+input_from.size['width']*0.5,
             512,
             delta=20,
         )
-        
+
