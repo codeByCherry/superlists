@@ -156,5 +156,10 @@ STATIC_URL = '/static/'
 #   ALLOWED_HOSTS
 #
 #   配置 nginx 将80端口映射到服务器的 8000 端口
+#   详情查看 nginx_setting.txt 文件
+#   服务器端安装了 nginx 后可以通过 $nginx -t 测试配置文件是否正确。
+#
+#   以上只是简单完成 部署，但是在实际部署中不能使用 dgango 的内置服务器
+#   并且不可以手动使用 ./manager runserver 实现服务器开启。
 #
 
