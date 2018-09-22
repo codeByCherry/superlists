@@ -161,5 +161,6 @@ STATIC_URL = '/static/'
 #
 #   以上只是简单完成 部署，但是在实际部署中不能使用 dgango 的内置服务器
 #   并且不可以手动使用 ./manager runserver 实现服务器开启。
-#
+#   而是使用 nginx 提供静态文件服务， gunicorn 运行 django 代码！
+#   
 
