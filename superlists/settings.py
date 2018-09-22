@@ -23,9 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j_q&_xxno49609sg2%j9%$qah2bolnds$z+qwk$8_brq#ahs&@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'www.oocoding.com',
+]
 
 
 # Application definition
@@ -121,5 +126,40 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+# STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+
+#  在服务器的终端输入下面指令
+#   cd ~
+#   # 使用 staging 表示这是一个过渡测试网站，不是正式上线的网站
+#   export SITENAME=www.staging.oocoding.com
+#   mkdir -p ~/sites/$SITENAME/database
+#   mkdir -p ~/sites/$SITENAME/static
+#   mkdir -p ~/sites/$SITENAME/virtualenv
+#   手动部署代码到服务器
+#   将服务器的公钥添加到 github 中
+#   ssh-keygen -t rsa -C "somebody_qq@qq.com"
+#   cat ~/.ssh/id_rsa.pub  内容设置到 github 中
+#   git clone git://zhang....git ~/sites/$SITENAME/source
+#   在终端配置服务器的 Python 环境。  python3 -m venv ../virtualenv
+#   激活虚拟环境 source ../virtualenv/bin/active
+#   安装 django
+#   pip install django
+#
+#   安装 nginx
+#   sudo apt install nginx
+#   启动 nginx 检查 nginx 是否启动成功
+#   sudo systemctl start nginx
+#   访问 http://ip.address or http://web_name
+#   检查是否看到nginx 的启动页面
+#
+#   检查 settings.py 是否关闭了调试模式 并绑定好可访问的域名
+#   ALLOWED_HOSTS
+#
+#   配置 nginx 将80端口映射到服务器的 8000 端口
+#   详情查看 nginx_setting.txt 文件
+#   服务器端安装了 nginx 后可以通过 $nginx -t 测试配置文件是否正确。
+#
+#   以上只是简单完成 部署，但是在实际部署中不能使用 dgango 的内置服务器
+#   并且不可以手动使用 ./manager runserver 实现服务器开启。
+#
 
