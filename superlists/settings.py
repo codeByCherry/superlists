@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
 #  在服务器的终端输入下面指令
 #   cd ~
@@ -162,5 +162,13 @@ STATIC_URL = '/static/'
 #   以上只是简单完成 部署，但是在实际部署中不能使用 dgango 的内置服务器
 #   并且不可以手动使用 ./manager runserver 实现服务器开启。
 #   而是使用 nginx 提供静态文件服务， gunicorn 运行 django 代码！
-#   
+#
+
+#   使用 gunicorn 运行 django 代码
+#   1: pip install gunicorn
+#   2: 为 gunicorn 指定 wsig 中application 的位置（配置 gunicorn）
+#   因为在 wsig 中存在application = get_wsgi_application()
+#   注意首先需要进入 项目的路径下，使用包的方式指向该 application
+#   (首先确定在Python 的虚拟环境下)
+#   gunicorn superlists.wsgi:application
 
