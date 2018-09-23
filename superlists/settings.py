@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j_q&_xxno49609sg2%j9%$qah2bolnds$z+qwk$8_brq#ahs&@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -171,4 +171,10 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 #   注意首先需要进入 项目的路径下，使用包的方式指向该 application
 #   (首先确定在Python 的虚拟环境下)
 #   gunicorn superlists.wsgi:application
+#   配置 STATIC_ROOT
+#   执行 collectstatic 指令
+#   重启 nginx        sudo systemctl reload  nginx
+#   重启 gunicorn     gunicorn superlists.wsgi:application
 
+#   (除了 debug 模式没有关闭, ALLOW_HOST 没有配置)
+#   以上完成了 使用 gunicorn 的服务器配置。
