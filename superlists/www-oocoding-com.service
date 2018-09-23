@@ -1,0 +1,24 @@
+# 实现服务器自动后自动启动 gunicorn 服务，或奔溃后自启动
+[Unit]
+description=Gunicorn server for superlists
+
+[Service]
+Restart=on-failure
+User=Zhangxx
+WorkingDirectory=/home/zhangxx/sites/www.staging.oocoding.com/source
+# 激活虚拟的 Python 环境后通过 which gunicorn 获取 gunicorn 的地址
+ExecStart=/home/zhangxx/sites/www.staging.oocoding.com/virtualenv/bin/gunicorn \
+--bind unix:/tmp/www-oocoding-com.socket \
+uperlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+# 将该文件拷贝到 /etc/systemd/system 中，确认必须以 .service 结尾
+# 执行下面的指令
+# sudo systemctl daemon-reload
+# enable 后面跟着的是文件名
+# 让服务器启动的时候启动这个服务
+# sudo systemctl enable www-oocoding-com
+# 现在手动启动这个服务
+# sudo systemctl start www-oocoding-com
