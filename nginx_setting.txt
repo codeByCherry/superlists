@@ -2,6 +2,10 @@ server {
     listen          80;
     server_name     www.oocoding.com;
 
+    location /static {
+        alias /home/zhangxx/sites/www.staging.oocoding.com/static;
+    }
+    
     location / {
         proxy_pass http://localhost:8000;
     }
