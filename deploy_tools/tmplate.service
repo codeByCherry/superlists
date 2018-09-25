@@ -4,7 +4,7 @@ description=Gunicorn server for SITENAME
 
 [Service]
 Restart=on-failure
-User=Zhangxx
+User=zhangxx
 WorkingDirectory=/home/zhangxx/sites/SITENAME/source
 # 激活虚拟的 Python 环境后通过 which gunicorn 获取 gunicorn 的地址
 
