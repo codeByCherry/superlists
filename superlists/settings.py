@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'www.oocoding.com',
+    '45.63.126.172',
 ]
 
 
@@ -143,7 +144,7 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 #   在终端配置服务器的 Python 环境。  python3 -m venv ../virtualenv
 #   激活虚拟环境 source ../virtualenv/bin/active
 #   安装 django
-#   pip install django
+#   pip install djangto
 #
 #   安装 nginx
 #   sudo apt install nginx
@@ -178,3 +179,11 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
 #   (除了 debug 模式没有关闭, ALLOW_HOST 没有配置)
 #   以上完成了 使用 gunicorn 的服务器配置。
+
+#   pip broken by 'NewConnectionError
+#   解决这个问题
+#   sudo vi /ect/resolv.conf
+#   servername 8.8.8.8
+#   servername 114.114.114.114
+#
+
