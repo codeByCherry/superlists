@@ -65,5 +65,11 @@ $ sed "s/SITENAME/www.oocoding.com/g" \
 source/deploy_tools/gunicorn.template.service \
 | sudo tee /etc/systemd/system/gunicorn-superlists.service
 
+$ sudo systemctl daemon-reload
+$ sudo systemctl reload nginx
+$ sudo systemctl enable gunicorn-superlists.service
+$ sudo systemctl start gunicorn-superlists.service
+# systemctl list-units --type=service 可查看启动过的服务
+
 ```
 * 使用到 template.service
