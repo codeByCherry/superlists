@@ -14,7 +14,7 @@ REPO_URL = 'git@github.com:codeByCherry/superlists.git'
 def deploy():
     # host 是在命令行中指定具体的值
     # env.host 是通过命令行传入
-    print(f'host:{env.host}')
+    print(f'hostname:{env.host}')
     # env.user 是使用操作系统的用户名
     print(f'user:{env.user}')
     site_folder = f'/home/{env.user}/sites/{env.host}'
