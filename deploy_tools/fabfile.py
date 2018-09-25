@@ -17,13 +17,13 @@ def deploy():
     print(f'host:{env.host}')
     # env.user 是使用操作系统的用户名
     print(f'user:{env.user}')
-    # site_folder = f'/home/{env.user}/sites/{env.host}'
-    # source_folder = f'{site_folder}/source'
-    # _create_directory_structure_if_necessary(site_folder)
-    # _get_latest_source(source_folder)
-    # _update_virtualenv(source_folder)
-    # _update_static_file(source_folder)
-    # _update_database(source_folder)
+    site_folder = f'/home/{env.user}/sites/{env.host}'
+    source_folder = f'{site_folder}/source'
+    _create_directory_structure_if_necessary(site_folder)
+    _get_latest_source(source_folder)
+    _update_virtualenv(source_folder)
+    _update_static_file(source_folder)
+    _update_database(source_folder)
 
 
 def _create_directory_structure_if_necessary(site_folder):

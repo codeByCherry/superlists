@@ -183,8 +183,8 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 #   pip broken by 'NewConnectionError
 #   解决这个问题
 #   sudo vi /ect/resolv.conf
-#   servername 8.8.8.8
-#   servername 114.114.114.114
+# nameserver 114.114.114.114
+# nameserver 8.8.8.8
 #
 
 #  关于使用 fabic3 实现自动部署
