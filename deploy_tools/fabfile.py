@@ -47,19 +47,19 @@ def _update_settings(source_folder, site_name=env.host):
     settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
-        'ALLOW_HOSTS = .+$',
-        f'Allow_hosts = [ "{site_name}"]'
+        'ALLOWED_HOSTS = .+$',
+        f'ALLOWED_HOSTS = [ "{site_name}"]'
         )
 
     secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
-        chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+:"?><'
+        chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@1234567890><'
         # random.SystemRandom().choice(chars) 会在 chars 中 choice 一个随机字符
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
         print("*"*30)
         print(f'key::{key}')
         print("*"*30)
-        append(secret_key_file, f'SECRET_KEY = {key}')
+        append(secret_key_file, f'SECRET_KEY="{key}"')
 
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
