@@ -1,9 +1,13 @@
 from fabric.contrib.files import append
 from fabric.contrib.files import exists
 from fabric.contrib.files import sed
+# 获取环境变量
 from fabric.api import env
+# 执行命令并获取命令行执行结果
 from fabric.api import local
+# 执行命令行
 from fabric.api import run
+
 import random
 import os
 
@@ -17,13 +21,20 @@ def deploy():
     print(f'hostname:{env.host}')
     # env.user 是使用操作系统的用户名
     print(f'user:{env.user}')
+    assert env.host is not None, 'use like fab deploy:host=www.somewhere.com'
     site_folder = f'/home/{env.user}/sites/{env.host}'
     source_folder = f'{site_folder}/source'
+
     _create_directory_structure_if_necessary(site_folder)
+
     _get_latest_source(source_folder)
+
     _update_settings(source_folder, env.host)
+
     _update_virtualenv(source_folder)
+
     _update_static_file(source_folder)
+
     _update_database(source_folder)
 
 
@@ -45,13 +56,17 @@ def _get_latest_source(source_folder):
 
 def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/superlists/settings.py'
+    assert exists(settings_path), '注意配置文件不存在！！！'
+
     sed(settings_path, "DEBUG = True", "DEBUG = False")
-    # sed(settings_path,
-    #     'ALLOWED_HOSTS = .+$',
-    #     f'ALLOWED_HOSTS = [ '
-    #     f'www.oocoding.com, '
-    #     f']'
-    #     )
+    sed(settings_path,
+        'ALLOWED_HOSTS = .+$',
+
+        f'ALLOWED_HOSTS = [ '
+        f'{site_name}, '
+        f']'
+        )
+
     print("*"*30)
     print("env host:", env.host)
     print(f'add {site_name} to ALLOWED_HOSTS!')
@@ -59,15 +74,16 @@ def _update_settings(source_folder, site_name):
 
     secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
-        chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@1234567890><'
+        chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%^&*()_+><'
         # random.SystemRandom().choice(chars) 会在 chars 中 choice 一个随机字符
-        key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
+        # key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
+        key = ''.join(random.choice(chars) for _ in range(50))
         print("*"*30)
         print(f'key::{key}')
         print("*"*30)
         append(secret_key_file, f'SECRET_KEY="{key}"')
 
-    append(settings_path, '### test append func ...##')
+    assert exists(secret_key_file)
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
 
