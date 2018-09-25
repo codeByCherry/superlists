@@ -1,9 +1,9 @@
 server {
     listen          80;
-    server_name     www.oocoding.com;
+    server_name     SITENAME;
 
     location /static {
-        alias /home/zhangxx/sites/www.oocoding.staging.com/static;
+        alias /home/zhangxx/sites/SITENAME/static;
     }
 
     location / {
@@ -11,7 +11,7 @@ server {
         # 改用socket 配置 Ningx 和 Gunicorn 通信
         # 这行代码可有可无 proxy_set_header Host $host;
         proxy_set_header Host $host;
-        proxy_pass http://unix:/tmp/www-oocoding-com.socket;
+        proxy_pass http://unix:/tmp/SITENAME.socket;
         #上面绑定了一个 socket
         #现在通过创建一个 socket gunicorn --bind unix:/tmp/www-oocoding-com.socket superlists.wsgi:application
     }
