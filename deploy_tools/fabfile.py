@@ -50,6 +50,9 @@ def _update_settings(source_folder, site_name=env.host):
         'ALLOWED_HOSTS = .+$',
         f'ALLOWED_HOSTS = [ "{site_name}"]'
         )
+    print("*"*30)
+    print(f'add {site_name} to ALLOWED_HOSTS!')
+    print("*"*30)
 
     secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
