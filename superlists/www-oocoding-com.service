@@ -5,9 +5,9 @@ description=Gunicorn server for superlists
 [Service]
 Restart=on-failure
 User=Zhangxx
-WorkingDirectory=/home/zhangxx/sites/www.staging.oocoding.com/source
+WorkingDirectory=/home/zhangxx/sites/www.oocoding.staging.com/source
 # 激活虚拟的 Python 环境后通过 which gunicorn 获取 gunicorn 的地址
-ExecStart=/home/zhangxx/sites/www.staging.oocoding.com/virtualenv/bin/gunicorn \
+ExecStart=/home/zhangxx/sites/www.oocoding.staging.com/virtualenv/bin/gunicorn \
 --bind unix:/tmp/www-oocoding-com.socket \
 superlists.wsgi:application
 
