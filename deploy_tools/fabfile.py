@@ -63,7 +63,7 @@ def _update_settings(source_folder, site_name):
         'ALLOWED_HOSTS = .+$',
 
         f'ALLOWED_HOSTS = [ '
-        f'{site_name}, '
+        f'"{site_name}", '
         f']'
         )
 
