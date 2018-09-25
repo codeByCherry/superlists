@@ -187,3 +187,6 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 #   servername 114.114.114.114
 #
 
+#  关于使用 fabic3 实现自动部署
+#   1: 创建一个文件 fabfile.py 在 deploy_tools 的文件夹下
+#   调用方式 fab
