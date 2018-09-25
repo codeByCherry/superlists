@@ -51,6 +51,7 @@ def _update_settings(source_folder, site_name):
         f'ALLOWED_HOSTS = [ "{site_name}" ]'
         )
     print("*"*30)
+    print(env.host)
     print(f'add {site_name} to ALLOWED_HOSTS!')
     print("*"*30)
 
