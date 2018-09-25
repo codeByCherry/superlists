@@ -53,13 +53,15 @@ fix pip error
 ## 部署后，配置 nginx 和 gunicorn
 
 * 使用 nginx_setting.txt 模板替换到目标地址,将SITENAME 替换成 *www.oocoding.com*
+* 使用到 gunicorn.template.service
+
 ```bash
 $ sed "s/SITENAME/www.oocoding.com/g" \
 source/deploy_tools/nginx.template.conf \
 | sudo tee /etc/nginx/sites-available/superlists.com
 
 $ sudo ln -s  /etc/nginx/sites-available/superlists.com \
-/ect/nginx/sites-enabled/superlists.com
+/etc/nginx/sites-enabled/superlists.com
 
 $ sed "s/SITENAME/www.oocoding.com/g" \
 source/deploy_tools/gunicorn.template.service \
@@ -72,4 +74,3 @@ $ sudo systemctl start gunicorn-superlists.service
 # systemctl list-units --type=service 可查看启动过的服务
 
 ```
-* 使用到 template.service

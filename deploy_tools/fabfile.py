@@ -37,6 +37,10 @@ def deploy():
 
     _update_database(source_folder)
 
+    _setup_nginx(site_folder)
+
+    _run_server_on_port_8000(site_folder)
+
 
 def _create_directory_structure_if_necessary(site_folder):
     for sub_folder in ('database', 'static', 'virtualenv', 'source'):
@@ -63,6 +67,8 @@ def _update_settings(source_folder, site_name):
         'ALLOWED_HOSTS = .+$',
 
         f'ALLOWED_HOSTS = [ '
+        f'localhost',
+        f'127.0.0.1',
         f'"{site_name}", '
         f']'
         )
@@ -114,3 +120,29 @@ def _update_database(source_folder):
         f'cd {source_folder}'
         f'&& ../virtualenv/bin/python3 manage.py migrate --noinput'
     )
+
+
+def _setup_nginx(site_folder):
+    nginx_template_conf_path = f'{site_folder}/source/deploy_tools/nginx.template.conf'
+    # TODO:: 优化代码，提出共有的 superlists，方便以后使用不同的项目
+    released_nginx_conf_path = f'/etc/nginx/sites-available/superlists.com'
+    print('nginx 模板的位置:', nginx_template_conf_path)
+    print('生效的 nginx 配置：', released_nginx_conf_path)
+
+    run(f'sed "s/SITENAME/{env.host}/g" \
+            {nginx_template_conf_path}\
+            | sudo tee {released_nginx_conf_path}'
+        )
+
+
+def _run_server_on_port_8000(site_folder):
+    gunicorn_path = os.path.join(site_folder, 'virtualenv/bin/gunicorn')
+    source_path = os.path.join(site_folder, 'source')
+    run(f'cd {source_path} && '
+        f'{gunicorn_path} superlists.wsgi:application')
+
+
+def _run_server():
+    print("*"*30)
+    print('完成部署，开始执行运行指令')
+    pass
