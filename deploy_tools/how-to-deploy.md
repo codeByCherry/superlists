@@ -40,4 +40,30 @@ fix pip error
                 |--------- static
                 |--------- virtualenv
 ```
+
+## 使用fab 实现部署
+在过渡服务器的基础上进行生产部署，因为过渡服务器已经安装好了可用的 python3 pip fabric3等环境可以。
+
+* 执行 pip 安装指令 *pip install fabric3*
+* 创建 *fabfile.py*
+* 在 fabfile.py 的路径下，执行自动部署指令 *fab deploy:host=www.oocoding.com*
+
+上面基本都是套路， deploy 是 fabfile.py 的自定义方法，后面跟随参数，指定了 env.host 环境变量
         
+## 部署后，配置 nginx 和 gunicorn
+
+* 使用 nginx_setting.txt 模板替换到目标地址,将SITENAME 替换成 *www.oocoding.com*
+```bash
+$ sed "s/SITENAME/www.oocoding.com/g" \
+source/deploy_tools/nginx.template.conf \
+| sudo tee /etc/nginx/sites-available/superlists.com
+
+$ sudo ln -s  /etc/nginx/sites-available/superlists.com \
+/ect/nginx/sites-enabled/superlists.com
+
+$ sed "s/SITENAME/www.oocoding.com/g" \
+source/deploy_tools/gunicorn.template.service \
+| sudo tee /etc/systemd/system/gunicorn-superlists.service
+
+```
+* 使用到 template.service

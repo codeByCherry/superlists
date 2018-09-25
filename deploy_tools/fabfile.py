@@ -84,6 +84,7 @@ def _update_settings(source_folder, site_name):
         append(secret_key_file, f'SECRET_KEY="{key}"')
 
     assert exists(secret_key_file)
+    # 删除已存在 SECRET_KEY
     sed(
         settings_path,
         'SECRET_KEY = .+',
