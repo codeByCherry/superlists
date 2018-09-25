@@ -48,7 +48,7 @@ def _update_settings(source_folder, site_name):
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
         'ALLOWED_HOSTS = .+$',
-        f'ALLOWED_HOSTS = [ "{site_name}" ]'
+        f'ALLOWED_HOSTS = [ www.oocoding.com ]'
         )
     print("*"*30)
     print("env host:", env.host)
