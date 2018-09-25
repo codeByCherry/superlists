@@ -82,11 +82,11 @@ def _update_settings(source_folder, site_name):
         print(f'key::{key}')
         print("*"*30)
         append(secret_key_file, f'SECRET_KEY="{key}"')
-        _assert_append_success(secret_key_file, f'SECRET_KEY="{key}"')
 
     assert exists(secret_key_file)
     key_line = '\nfrom .secret_key import SECRET_KEY'
-    append(settings_path, key_line)
+    # append(settings_path, key_line)
+    run(f'echo "{key_line}">>{settings_path}')
 
 
 def _update_virtualenv(source_folder):
@@ -108,8 +108,3 @@ def _update_database(source_folder):
         f'cd {source_folder}'
         f'&& ../virtualenv/bin/python3 manage.py migrate --noinput'
     )
-
-
-def _assert_append_success(file_path, last_line):
-    setting_lines = open(file_path).readlines()
-    assert setting_lines[:-1].strip() == last_line.strip()
