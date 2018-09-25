@@ -21,6 +21,7 @@ def deploy():
     source_folder = f'{site_folder}/source'
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
+    _update_settings(source_folder)
     _update_virtualenv(source_folder)
     _update_static_file(source_folder)
     _update_database(source_folder)
@@ -42,7 +43,7 @@ def _get_latest_source(source_folder):
     run(f'cd {source_folder} && git reset --hard {current_commit}')
 
 
-def _update_settings(source_folder, site_name):
+def _update_settings(source_folder, site_name=env.host):
     settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
