@@ -55,6 +55,9 @@ def _update_settings(source_folder, site_name):
         chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+:"?><'
         # random.SystemRandom().choice(chars) 会在 chars 中 choice 一个随机字符
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
+        print("*"*30)
+        print(f'key::{key}')
+        print("*"*30)
         append(secret_key_file, f'SECRET_KEY = {key}')
 
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
