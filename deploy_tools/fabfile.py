@@ -84,6 +84,11 @@ def _update_settings(source_folder, site_name):
         append(secret_key_file, f'SECRET_KEY="{key}"')
 
     assert exists(secret_key_file)
+    sed(
+        settings_path,
+        'SECRET_KEY = .+',
+        ''
+    )
     key_line = '\nfrom .secret_key import SECRET_KEY'
     # append(settings_path, key_line)
     run(f'echo "{key_line}">>{settings_path}')
