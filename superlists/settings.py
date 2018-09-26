@@ -25,7 +25,8 @@ SECRET_KEY = 'j_q&_xxno49609sg2%j9%$qah2bolnds$z+qwk$8_brq#ahs&@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# TODO:: 由于 fab 的 sed 总是替换失败，导致 allowed_hosts 设置失败!故手动配置这个值
+ALLOWED_HOSTS = ['localhost', 'www.oocoding.com']
 
 
 # Application definition
