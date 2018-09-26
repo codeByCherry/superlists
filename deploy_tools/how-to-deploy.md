@@ -73,4 +73,5 @@ $ sudo systemctl enable gunicorn-superlists.service
 $ sudo systemctl start gunicorn-superlists.service
 # systemctl list-units --type=service 可查看启动过的服务
 
+# 如果服务失败，请检查 settings.py 是否正确！
 ```
