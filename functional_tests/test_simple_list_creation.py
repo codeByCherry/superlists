@@ -1,55 +1,13 @@
 # from django.test import LiveServerTestCase
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-import time
-import os
+from .base import FunctionalTest
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import NoSuchElementException
 
 MAX_TIME = 5
 
 
-class NewVisitorTest(StaticLiveServerTestCase):
-    def setUp(self):
-        web_host = os.environ.get('STAGING_SERVER')
-        if web_host:
-            self.live_server_url = f'http://{web_host}'
-
-        print()
-        print("*"*30)
-        print("live_server_url->" + self.live_server_url)
-        print("*"*30)
-        self.browser = webdriver.Firefox()
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def wait_for_row_in_list_table(self, item):
-        start_time = time.time()
-        while True:
-            try:
-
-                items = self.browser.find_element_by_id('id_list_table').text
-                self.assertIn(item, items)
-                break
-
-            except (StaleElementReferenceException,
-                    AssertionError,
-                    NoSuchElementException,
-                    ) as err:
-                cost_time = time.time()-start_time
-                print('cost time:', cost_time)
-                if cost_time >= MAX_TIME:
-                    raise err
-                else:
-                    time.sleep(0.1)
-
-    def input_todo_item(self, item_text):
-        input_box = self.browser.find_element_by_id('id_new_item')
-        input_box.send_keys(item_text)
-        input_box.send_keys(Keys.ENTER)
+class NewVisitorTest(FunctionalTest):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get(self.live_server_url)
@@ -123,17 +81,4 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.wait_for_row_in_list_table(andy_item2)
         # 断言: 两个用户的 url 不同
         self.assertNotEqual(tony_url, andy_url)
-
-    def test_layout_and_styling(self):
-        self.browser.get(self.live_server_url)
-        self.browser.set_window_size(1024, 768)
-
-        # 确定输入框水平居中
-        input_from = self.browser.find_element_by_id('id_new_item_form')
-
-        self.assertAlmostEqual(
-            input_from.location['x']+input_from.size['width']*0.5,
-            512,
-            delta=20,
-        )
 
