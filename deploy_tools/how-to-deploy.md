@@ -17,9 +17,9 @@ fix pip error
 ```bash
 #   pip broken by 'NewConnectionError
 #   解决这个问题
-#   sudo vi /ect/resolv.conf
-#   servername 8.8.8.8
-#   servername 114.114.114.114
+#   sudo vi /etc/resolv.conf
+#   nameserver 8.8.8.8
+#   nameserver 114.114.114.114
 ```
 
 ## nginx 配置

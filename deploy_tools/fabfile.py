@@ -37,6 +37,8 @@ def deploy():
 
     _update_database(source_folder)
 
+    _install_nginx()
+
     _setup_nginx(site_folder)
 
     _run_server_on_port_8000(site_folder)
@@ -120,6 +122,15 @@ def _update_database(source_folder):
         f'cd {source_folder}'
         f'&& ../virtualenv/bin/python3 manage.py migrate --noinput'
     )
+
+
+def _install_nginx():
+    if exists('/etc/nginx'):
+        run('sudo apt install nginx')
+    else:
+        print("*"*30)
+        print('nginx exists!! nice...')
+        print("*"*30)
 
 
 def _setup_nginx(site_folder):
