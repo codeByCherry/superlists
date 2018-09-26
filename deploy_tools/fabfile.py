@@ -66,7 +66,8 @@ def _update_settings(source_folder, site_name):
 
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
-        'ALLOWED_HOSTS = .+$',
+        # 'ALLOWED_HOSTS = .+$',
+        'ALLOWED_HOSTS = []',
         f'ALLOWED_HOSTS = ["localhost", "{env.host}",]',
         )
 
