@@ -67,12 +67,7 @@ def _update_settings(source_folder, site_name):
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
         'ALLOWED_HOSTS = .+$',
-
-        f'ALLOWED_HOSTS = [ '
-        f'localhost',
-        f'127.0.0.1',
-        f'"{site_name}", '
-        f']'
+        f'ALLOWED_HOSTS = ["localhost", "{env.host}",]',
         )
 
     print("*"*30)
