@@ -66,8 +66,9 @@ def _update_settings(source_folder, site_name):
 
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
-        # 'ALLOWED_HOSTS = .+$',
-        'ALLOWED_HOSTS = []',
+        'ALLOWED_HOSTS = .+$',
+        # 'ALLOWED_HOSTS = []',
+        
         f'ALLOWED_HOSTS = ["localhost", "{env.host}",]',
         )
 
@@ -87,7 +88,7 @@ def _update_settings(source_folder, site_name):
         print("*"*30)
         append(secret_key_file, f'SECRET_KEY="{key}"')
 
-    assert exists(secret_key_file)
+    # assert exists(secret_key_file)
     # 删除已存在 SECRET_KEY
     sed(
         settings_path,
