@@ -37,7 +37,7 @@ def deploy():
 
     _update_database(source_folder)
 
-    _install_nginx()
+    # _install_nginx()
 
     _setup_nginx(site_folder)
 
@@ -124,13 +124,13 @@ def _update_database(source_folder):
     )
 
 
-def _install_nginx():
-    if exists('/etc/nginx'):
-        run('sudo apt install nginx')
-    else:
-        print("*"*30)
-        print('nginx exists!! nice...')
-        print("*"*30)
+# def _install_nginx():
+#     if exists('/etc/nginx'):
+#         run('sudo apt install nginx')
+#     else:
+#         print("*"*30)
+#         print('nginx exists!! nice...')
+#         print("*"*30)
 
 
 def _setup_nginx(site_folder):
