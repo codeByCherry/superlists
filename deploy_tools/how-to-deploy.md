@@ -75,3 +75,22 @@ $ sudo systemctl start gunicorn-superlists.service
 
 # 如果服务失败，请检查 settings.py 是否正确！
 ```
+
+# 科学上网
+为了科学上网，可以使用 v2ray 实现，首先需要一个境外的服务器，比如 [vultr](https://my.vultr.com),购买一个服务器后，ssh 远程登录它，然后执行下面的指令
+```bash
+$ wget https://install.direct/go.sh
+$ cat go.sh
+$ sudo bash go.sh
+# 因为 v2ray 安装后会自动注册到 systemctl，所以省事的点的做法就是让linux reboot
+# 这样 linux 启动后会自动启动 v2ray
+$ systemctl list-units --type=service | grep v2 
+v2ray.service  loaded active running V2Ray Service  
+
+# 查看配置，客服端的配置文件和服务器匹配,注意 inbound 中的端口号,以及 user id 
+# 这些都需要服务器端提供给客服端，才能有效连接
+$ sudo cat /etc/v2ray/config.json
+
+# 配置中有相关日志可以查看
+```
+以上完成了服务器端配置，其实就是安装然后重启，并查看服务器端的相关权限，接下来是客服端的配置，macbook 安装一个客服端并完成配置就可科学上网了。在 [第三方 UI](https://v2ray.com/ui_client/) 可以查看到相关的客服端，然后配置就可科学上网

@@ -49,6 +49,24 @@ class FunctionalTest(StaticLiveServerTestCase):
                 else:
                     time.sleep(0.1)
 
+    # fn 传入的可以是一个 lambda
+    def wait_for(self, fn):
+        start_time = time.time()
+        while True:
+            try:
+                return fn()
+
+            except (StaleElementReferenceException,
+                    AssertionError,
+                    NoSuchElementException,
+                    ) as err:
+                cost_time = time.time()-start_time
+                print('cost time:', cost_time)
+                if cost_time >= MAX_TIME:
+                    raise err
+                else:
+                    time.sleep(0.1)
+
     def input_todo_item(self, item_text):
         input_box = self.browser.find_element_by_id('id_new_item')
         input_box.send_keys(item_text)
